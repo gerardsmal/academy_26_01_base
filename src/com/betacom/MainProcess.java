@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.betacom.exceptions.AcademyException;
 import com.betacom.interfaces.ProcessInterface;
+import com.betacom.process.ProcessCollection;
 import com.betacom.process.ProcessDate;
 import com.betacom.process.ProcessEnum;
 import com.betacom.process.ProcessException;
@@ -14,9 +15,9 @@ public class MainProcess {
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-//		System.out.print("Introdure un parametro [interface,string,exception, date, enum]:");
+//		System.out.print("Introdure un parametro [interface,string,exception, date, enum, collection]:");
 //		String inp = sc.nextLine();
-		String inp = "enum";
+		String inp = "collection";
 		ProcessInterface pr = null;
 		
 		switch (inp) {
@@ -40,7 +41,10 @@ public class MainProcess {
 				pr = new ProcessEnum();
 				break;
 			}
-
+			case "collection": {
+				pr = new ProcessCollection();
+				break;
+			}
 			default:{
 				System.out.println("process non previsto");
 				System.exit(1);

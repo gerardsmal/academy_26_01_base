@@ -28,7 +28,7 @@ public class ProcessException implements ProcessInterface{
 			throw new AcademyException(e.getMessage());
 		}
 		System.out.println("User validato normalmente");
-		
+		 
 		
 		
 		return true;
