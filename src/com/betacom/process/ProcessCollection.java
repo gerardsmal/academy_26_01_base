@@ -16,6 +16,7 @@ public class ProcessCollection implements ProcessInterface{
 		executeList();
 		return false;
 	}
+	
 	private void executeList() {
 		List<Impiegato> lI = new ArrayList<Impiegato>();
 		
