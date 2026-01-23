@@ -9,58 +9,41 @@ import com.betacom.process.ProcessDate;
 import com.betacom.process.ProcessEnum;
 import com.betacom.process.ProcessException;
 import com.betacom.process.ProcessInt;
+import com.betacom.process.ProcessSingleTone;
 import com.betacom.process.StringProcess;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainProcess {
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-//		System.out.print("Introdure un parametro [interface,string,exception, date, enum, collection]:");
+//		System.out.print("Introdure un parametro [interface,string,exception, date, enum, collection, singletone]:");
 //		String inp = sc.nextLine();
-		String inp = "collection";
-		ProcessInterface pr = null;
-		
-		switch (inp) {
-			case "string": {
-				pr = new StringProcess();
-				break;
-			}
-			case "exception": {
-				pr = new ProcessException();
-				break;
-			}
-			case "interface": {
-				pr = new ProcessInt();
-				break;
-			}
-			case "date": {
-				pr = new ProcessDate();
-				break;
-			}
-			case "enum": {
-				pr = new ProcessEnum();
-				break;
-			}
-			case "collection": {
-				pr = new ProcessCollection();
-				break;
-			}
-			default:{
-				System.out.println("process non previsto");
-				System.exit(1);
-			}
-		}
-		
-		try {
-			pr.execute();
-			System.out.println("Normal end");
-		} catch (AcademyException e) {
-			System.out.println("Errore applicativo:" + e.getMessage());
+		String inp = "singletone";
+		Map<String,ProcessInterface> pr = new HashMap<String, ProcessInterface>();
+		pr.put("string", new StringProcess());
+		pr.put("exception", new ProcessException());
+		pr.put("interface", new ProcessInt());
+		pr.put("date", new ProcessDate());
+		pr.put("enum", new ProcessEnum());
+		pr.put("collection", new ProcessCollection());
+		pr.put("singletone", new ProcessSingleTone());
 			
-		} catch (Exception e) {
-			System.out.println("Abnomal end:" + e.getMessage());
-			e.printStackTrace();
-	}
-
+		if (pr.containsKey(inp)) {
+			try {
+				ProcessInterface ex = pr.get(inp);
+				ex.execute();
+			} catch (AcademyException e) {
+				System.out.println("Errore applicativo:" + e.getMessage());
+				
+			} catch (Exception e) {
+				System.out.println("Abnomal end:" + e.getMessage());
+				e.printStackTrace();
+		}
+		} else {
+			System.out.println("process non previsto");
+		}
 	}
 }

@@ -2,7 +2,10 @@ package com.betacom.process;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.betacom.enums.Reparto;
 import com.betacom.interfaces.ProcessInterface;
@@ -14,6 +17,8 @@ public class ProcessCollection implements ProcessInterface{
 	public boolean execute() throws Exception {
 		System.out.println("Begin ProcessCollection");
 		executeList();
+		executeMap();
+		mapTest();
 		return false;
 	}
 	
@@ -60,6 +65,108 @@ public class ProcessCollection implements ProcessInterface{
 		
 		
 	}
+	
+	private void executeMap() {
+		System.out.println("Map process...");
+		String value = null;
+		String keySearch = null;
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("k1", "v1");
+		map.put("k2", "v2");
+		map.put("k3", "v3");
+		map.put("k4", "v4");
+		map.put("k5", "v5");
+		map.put("k6", "v6");
+		map.put("k7", "v7");
+		map.put("k8", "v8");
+		map.put("k9", "v9");
+		map.put("k10", "v10");
+		
+		System.out.println("Numero elementi Map:" + map.size());
+		
+		keySearch="k70";
+		if (map.containsKey(keySearch)) {
+			value = map.get(keySearch);
+			System.out.println("Valore di " + keySearch  +":" + value);			
+		} else {
+			System.out.println("la chiave " + keySearch  +" non trovata.");
+		}
+		
+		value = "v5";
+		if (map.containsValue(value)) {
+			System.out.println("Valore " + value  +" trovato.");			
+		} else {
+			System.out.println("Valore " + value  +" NON trovato.");		
+		}
+		
+		map.put("k3", "k3 modificata");		
+		System.out.println("Valore di k3:" + map.get("k3"));
+
+		value = "k3";
+		if (map.containsValue(value)) {
+			System.out.println("Valore " + value  +" trovato.");			
+		} else {
+			System.out.println("Valore " + value  +" NON trovato.");		
+		}
+		System.out.println("List map with Entry");
+		for (Entry<String, String> it:map.entrySet()) {
+			System.out.println("key:" + it.getKey() + " value:" + it.getValue());
+		}
+		
+		System.out.println("List map with KeySet");
+		for (String it:map.keySet()) {
+			System.out.println("key:" + it + " value:" + map.get(it));
+		}
+		
+
+	}
+	
+	private void mapTest() {
+		String params = "p1=aaa,p2=BBB,p3=26,p4=Paolo";
+		System.out.println("Valore di params:" + params);
+		String[] p = params.split(",");
+		Map<String, String> map = new HashMap<String, String>();
+		for (String it:p) {
+			String[] elem = it.split("=");
+			map.put(elem[0],elem[1]);
+		}
+
+		System.out.println("List map with KeySet");
+		for (String it:map.keySet()) {
+			System.out.println("key:" + it + " value:" + map.get(it));
+		}
+
+		List<String> input = new ArrayList<String>();
+		input.add( "p1=aaa,p2=BBB,p3=26,p4=Paolo");
+		input.add( "par1=10,par2=param2,par3=20.0, par4 =SAS");
+		input.add( "k1=Terzo,k2= 50,k3=struccutura,k4=50%, k6=aaa");
+		input.add( "p1=22,p2= Quarto,p3 = ABC,p4=20.5");
+
+		System.out.println("Build map");
+		List<Map<String, String>> res = new ArrayList<Map<String,String>>();
+		for (String inp:input) {
+			String[] par1 = inp.split(",");
+			Map<String, String> colum = new HashMap<String, String>();
+			for (String it:par1) {
+				String[] elem = it.split("=");
+				colum.put(elem[0].trim(),elem[1].trim());
+			}
+			res.add(colum);
+		}
+		System.out.println("Risultato .....");
+		int i = 0;
+		for (Map<String,String> it:res) {
+			System.out.println("riga " + ++i +":" + it.size());
+			for (String el:it.keySet()) {
+				System.out.println("key:" + el + " value:" + it.get(el));
+			}
+			
+		}
+		
+	}
+	
+	
 	private void sortBySalary(List<Impiegato> lI) {
 		lI.sort(new Comparator<Impiegato>() {
 			@Override
