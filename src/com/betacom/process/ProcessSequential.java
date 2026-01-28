@@ -1,0 +1,131 @@
+package com.betacom.process;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.betacom.interfaces.ProcessInterface;
+
+public class ProcessSequential implements ProcessInterface{
+
+	@Override
+	public boolean execute() throws Exception {
+		System.out.println("Begin ProcessSequential");
+		
+		String filePath = "/Users/gerard/Downloads/fileToRead.txt";
+		String filePathOut = "/Users/gerard/Downloads/fileToWrite.txt";
+		
+		List<String> records = readFile(filePath);
+		
+		for (String record:records) {
+			System.out.println(record);
+		}
+		
+	
+		List<String> recWrite = new ArrayList<String>();
+		recWrite.add("write 1");
+		recWrite.add("write 2");
+		recWrite.add("write 3");
+		recWrite.add("write 4");
+		recWrite.add("write 5");
+		recWrite.add("write 6");
+		recWrite.add("write 7");
+		recWrite.add("write 8");
+		recWrite.add("write 9");
+		recWrite.add("write 10");
+		recWrite.add("write 11");
+		recWrite.add("write 12");
+		
+		System.out.println("numero di records scitti:" + writeFile(filePathOut, recWrite, true));
+		
+		return false;
+	}
+	
+	
+	
+	private List<String> readFile(String path){
+		List<String> r = new ArrayList<String>();
+		
+		try(BufferedReader reader = new BufferedReader(new FileReader(path))){
+			String line = reader.readLine();
+			while (line != null) {
+				r.add(line);
+				line = reader.readLine();
+			}
+						
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return r;
+	}
+	
+	private int writeFile(String path, List<String> inp)  {
+		int num = 0;
+		
+		File f = new File(path);
+		
+		if (f.exists()) {
+			System.out.println("File " + path + " exists");
+			f.delete();
+		}
+		
+		FileWriter o = null;
+		try {
+			o = new FileWriter(f);
+			for (String rec:inp) {
+				o.write(rec);
+				o.write("\n");
+				num++;
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				o.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return num;
+	}
+	/*
+	 * mode : true -> estend file
+	 *      : false -> replace
+	 */
+	private int writeFile(String path, List<String> inp, boolean mode) {
+		int num = 0;
+		BufferedWriter o = null;
+		
+		try {
+			o = new BufferedWriter(new FileWriter(path, mode));
+			for (String rec:inp) {
+				o.write(rec);
+				o.newLine();
+				num++;
+			}
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				o.flush();
+				o.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		return num;
+	}
+
+}
