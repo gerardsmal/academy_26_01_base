@@ -10,6 +10,7 @@ import com.betacom.process.ProcessDate;
 import com.betacom.process.ProcessEnum;
 import com.betacom.process.ProcessException;
 import com.betacom.process.ProcessInt;
+import com.betacom.process.ProcessReflection;
 import com.betacom.process.ProcessSequential;
 import com.betacom.process.ProcessSingleTone;
 import com.betacom.process.ProcessStream;
@@ -22,9 +23,9 @@ public class MainProcess {
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-//		System.out.print("Introdure un parametro [interface,string,exception, date, enum, collection, singletone, sequential, anonima, stream]:");
+//		System.out.print("Introdure un parametro [interface,string,exception, date, enum, collection, singletone, sequential, anonima, stream, reflection]:");
 //		String inp = sc.nextLine();
-		String inp = "stream";
+		String inp = "reflection";
 		Map<String,ProcessInterface> pr = new HashMap<String, ProcessInterface>();
 		pr.put("string", new StringProcess());
 		pr.put("exception", new ProcessException());
@@ -36,6 +37,7 @@ public class MainProcess {
 		pr.put("sequential", new ProcessSequential());
 		pr.put("anonima", new ProcessAnonima());
 		pr.put("stream", new ProcessStream());
+		pr.put("reflection", new ProcessReflection());
 			
 		if (pr.containsKey(inp)) {
 			try {
