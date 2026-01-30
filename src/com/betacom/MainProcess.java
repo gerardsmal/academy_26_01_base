@@ -9,6 +9,8 @@ import com.betacom.process.ProcessCollection;
 import com.betacom.process.ProcessDate;
 import com.betacom.process.ProcessEnum;
 import com.betacom.process.ProcessException;
+import com.betacom.process.ProcessGenerics;
+import com.betacom.process.ProcessInner;
 import com.betacom.process.ProcessInt;
 import com.betacom.process.ProcessReflection;
 import com.betacom.process.ProcessSequential;
@@ -23,9 +25,9 @@ public class MainProcess {
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-//		System.out.print("Introdure un parametro [interface,string,exception, date, enum, collection, singletone, sequential, anonima, stream, reflection]:");
+//		System.out.print("Introdure un parametro [interface,string,exception, date, enum, collection, singletone, sequential, anonima, stream, reflection, inner. generics]:");
 //		String inp = sc.nextLine();
-		String inp = "reflection";
+		String inp = "generics";
 		Map<String,ProcessInterface> pr = new HashMap<String, ProcessInterface>();
 		pr.put("string", new StringProcess());
 		pr.put("exception", new ProcessException());
@@ -38,6 +40,8 @@ public class MainProcess {
 		pr.put("anonima", new ProcessAnonima());
 		pr.put("stream", new ProcessStream());
 		pr.put("reflection", new ProcessReflection());
+		pr.put("inner", new ProcessInner());
+		pr.put("generics", new ProcessGenerics());
 			
 		if (pr.containsKey(inp)) {
 			try {
