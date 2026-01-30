@@ -1,12 +1,12 @@
 package com.betacom.process;
 
 import java.lang.reflect.Type;
-import java.time.LocalDate;
 import java.util.List;
 
 import com.betacom.interfaces.ProcessInterface;
 import com.betacom.objects.ObjectJson;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 public class ProcessJson implements ProcessInterface {
@@ -17,7 +17,7 @@ public class ProcessJson implements ProcessInterface {
 		
 		ObjectJson usr = new ObjectJson("Giuseppe", "Verdi", true);
 		
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		
 		
 		/*
